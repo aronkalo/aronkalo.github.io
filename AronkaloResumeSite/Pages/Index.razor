@@ -1,0 +1,43 @@
+﻿@page "/"
+@inject IJSRuntime JS;
+<div class="header-outer-container">
+    <div class="header-container">
+        <div class="header-box">
+            <h3>My name is</h3>
+            <h1>Aron Kalo</h1>
+            <h3>I'm a @_currentRole| developer</h3>
+            <h5>Under construction <span class="oi oi-cog" aria-hidden="true"></span></h5>
+        </div>
+    </div>
+</div>
+
+@code{
+    private string _currentRole = String.Empty;
+    private static readonly string[] roles = new[] { "C#", "Blazor", ".NET Core", "ReactJS", "HTML5" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        EndlessWriting();
+    }
+
+    private async Task EndlessWriting()
+    {
+        while (JS is not null)
+        {
+            foreach (var role in roles)
+            {
+                _currentRole = String.Empty;
+                foreach (var character in role)
+                {
+                    _currentRole += character;
+                    StateHasChanged();
+                    await Task.Delay(100);
+                }
+                await Task.Delay(1000);
+            }
+        }
+    }
+}
+
+
